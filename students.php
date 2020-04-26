@@ -16,7 +16,7 @@ if (isset($_POST['add_student'])) {
     if (mysqli_query($connection, $query)) {
         unset($_POST);
 //        session_start();
-        $_SESSION['message'] = '<div class="alert-success">Запись успешно добавлена!</div>';
+//        $_SESSION['message'] = '<div class="alert-success">Запись успешно добавлена!</div>';
         header("Location: students.php?group_i={$_GET['group_i']}");
     } else {
         echo mysqli_error($connection);
@@ -28,7 +28,7 @@ if (isset($_POST['del_student'])) {
     if (mysqli_query($connection, $query)) {
         unset($_POST);
 //        session_start();
-        $_SESSION['message'] = '<div class="alert-success">Запись успешно удалена!</div>';
+//        $_SESSION['message'] = '<div class="alert-success">Запись успешно удалена!</div>';
         header("Location: students.php?group_i={$_GET['group_i']}");
     } else {
         echo mysqli_error($connection);

@@ -5,6 +5,12 @@ $connection = mysqli_connect(
 'g957pjz6183p92u1',
 'l71oqck6h7ezyshm'
 );
+//$connection = mysqli_connect(
+//    'wz.log',
+//    'root',
+//    '',
+//    'mydb'
+//);
 
 if ($connection == false) {
     echo 'Неудалось подключиться к базе данных!<br>';

@@ -12,7 +12,7 @@ if (isset($_POST['group_name'])) {
     if (mysqli_query($connection, $query)) {
         unset($_POST['group_name']);
 //        session_start();
-        $_SESSION['message'] = '<div class="alert-success">Запись успешно добавлена!</div>';
+//        $_SESSION['message'] = '<div class="alert-success">Запись успешно добавлена!</div>';
 
         header('Location: groups.php');
     } else {
@@ -24,7 +24,7 @@ if (isset($_POST['del_group'])) {
     $query = "delete from groups where id = {$_POST['del_group']}";
     if (mysqli_query($connection, $query)) {
         unset($_POST['del_group']);
-        $_SESSION['message'] = '<div class="alert-success">Запись успешно удалена!</div>';
+//        $_SESSION['message'] = '<div class="alert-success">Запись успешно удалена!</div>';
 //        session_start();
     } else {
         echo mysqli_error($connection);
