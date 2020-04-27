@@ -97,7 +97,7 @@ $schedule = result_to_array(
                     <th>№</th>
                     <th>Дата</th>
                     <th>Начало</th>
-                    <th>Класс</th>
+                    <th>Аудитория</th>
                     <th>Дисциплина</th>
                     <th>Группа</th>
                     <th>Преподаватель</th>

@@ -4,6 +4,9 @@
             <a class="nav-link" href="../schedule.php">Расписание</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="../classes.php">Аудитории</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="../groups.php">Группы</a>
         </li>
         <li class="nav-item">
