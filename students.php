@@ -1,6 +1,6 @@
 <?php
 session_start();
-//print_r($_GET);
+
 include 'includes/db.php';
 include 'includes/arrays.php';
 //echo $_GET['group_i'];
@@ -49,28 +49,6 @@ if (isset($_POST['del_student'])) {
 </head>
 <body>
 <div class="container">
-<!--    <nav class="navbar border">-->
-<!--        <ul class="nav">-->
-<!--            <li class="nav-item">-->
-<!--                <span class="nav-link alert-primary">Приветствую, --><?// echo $_SESSION['login'] ?><!--!</span>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="schedule.php">Расписание</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="groups.php">Группы</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="tutors.php">Преподаватели</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <form method="post" action="includes/logout.php">-->
-<!--                    <input type="submit" name="logout" value="Выйти" class="nav-link btn btn-outline-primary">-->
-<!--                </form>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </nav>-->
-
     <?php
     include "includes/nav.php";
     ?>
@@ -91,9 +69,6 @@ if (isset($_POST['del_student'])) {
                 <tbody>
 
                 <?php
-                //Array ( [0] => Array (
-                // [id] => 1 [group_id] => 1 [firstName] => Ivan
-                // [secondName] => Ivanov [phone] => 555-55-55 [email] => ivan@ivan.ru ) )
                 foreach ($students as $item) {
                     $id = $item['id'];
                     echo "
@@ -105,11 +80,11 @@ if (isset($_POST['del_student'])) {
                             <td>{$item['email']}</td>
                             
                             <td> 
-                         <!--       <form method='get' action='progress.php'>
+                               <form method='get' action='progress.php'>
                                     <button type='submit' name='student_id' value='{$id}' class='btn btn-outline-primary'>
                                    Прогресс</button>
-                                </form> -->
-                                <a href='progress.php' class='btn btn-outline-primary'>Прогресс</a>
+                                </form> 
+                              <!--   <a href='progress.php' class='btn btn-outline-primary'>Прогресс</a>-->
                             </td>
                             ";
                     if ($_SESSION['login'] == 'admin') {

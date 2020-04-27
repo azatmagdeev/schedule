@@ -39,11 +39,11 @@ if (isset($_POST['ok'])) {
 <body>
 
 <div class="container">
-    <div class="row">
+    <div class="row vh-100 align-content-center" >
         <div class="col"></div>
         <div class="col">
             <form method="POST" class="form-group">
-                <fieldset class="form-control">
+                <fieldset>
                     <legend>Авторизация</legend>
                     <?php
                     echo $_SESSION['message'];

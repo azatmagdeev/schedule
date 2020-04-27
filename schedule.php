@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!$_SESSION['login']){
+if (!$_SESSION['login']) {
     header('Location: index.php');
 }
 if (isset($_SESSION['login'])) {
@@ -13,6 +13,72 @@ if (isset($_SESSION['login'])) {
 //print_r($_SESSION);
 include 'includes/db.php';
 include 'includes/arrays.php';
+
+
+//function concat($arr)
+//{
+//    $str = '';
+//    foreach ($arr as $item) {
+//        $str .= ' ' . $item . ',';
+//    }
+//    $str = rtrim($str, ",");
+//    return $str;
+//}
+
+function construct_query($day, $lesson_id, $class_id, $discipline_id, $group_id, $tutor_id)
+{
+    $from = 'schedule';
+    $where = '';
+    if ($day) {
+        $str = "= '" . $day . "'";
+        $where = 'where day ' . $str;
+    }
+
+    if ($lesson_id) {
+        $str = '= ' . $lesson_id;
+        $where ? $and = 'and ' : $and = 'where ';
+        $where .= $and . 'lesson_id ' . $str;
+    }
+    if ($class_id) {
+        $str = '= ' . $class_id;
+        $where ? $and = 'and ' : $and = 'where ';
+        $where .= $and . 'class_id ' . $str;
+    }
+    if ($discipline_id) {
+        $str = '= ' . $discipline_id;
+        $where ? $and = 'and ' : $and = 'where ';
+        $where .= $and . 'discipline_id ' . $str;
+    }
+    if ($group_id) {
+        $str = '= ' . $group_id;
+        $where ? $and = 'and ' : $and = 'where ';
+        $where .= $and . 'group_id ' . $str;
+    }
+    if ($tutor_id) {
+        $str = '= ' . $tutor_id;
+        $where ? $and = 'and ' : $and = 'where ';
+        $where .= $and . 'tutor_id ' . $str;
+    }
+
+    return "select * from {$from} {$where}";
+}
+
+//print_r($_GET);
+//echo
+
+
+$schedule = result_to_array(
+        mysqli_query($connection, construct_query(
+                $_GET['day'],
+                $_GET['lesson_id'],
+                $_GET['class_id'],
+                $_GET['discipline_id'],
+                $_GET['group_id'],
+                $_GET['tutor_id']
+        ))
+);
+
+//unset($_GET);
 
 ?>
     <!doctype html>
@@ -32,49 +98,39 @@ include 'includes/arrays.php';
 
     <div class="container">
 
-<?php
-include "includes/nav.php";
-?>
-<!--        <nav class="navbar border">-->
-<!--            <ul class="nav">-->
-<!--                <li class="nav-item">-->
-<!--                    <span class="nav-link alert-primary" >Приветствую, --><?// echo $_SESSION['login'] ?><!--!</span>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="schedule.php">Расписание</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="groups.php">Группы</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="tutors.php">Преподаватели</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <form method="post">-->
-<!--                        <input type="submit" name="logout" value="Выйти" class="nav-link btn btn-outline-primary">-->
-<!--                    </form>-->
-<!--                </li>-->
-<!--            </ul>-->
 
-<!--            <div class="navbar-brand">Приветствую, --><?// echo $_SESSION['login'] ?><!--!</div>-->
-<!--            <div>-->
-<!--                <ul class="nav">-->
-<!--                    <li>-->
-<!--                        <a href="groups.php">Группы</a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--                <div class="nav-item mr-0">-->
+        <?php
+        include "includes/nav.php";
+        ?>
+        <!--            <ul class="nav">-->
+        <!--                <li class="nav-item">-->
+        <!--                    <span class="nav-link alert-primary" >Приветствую, -->
+        <?// echo $_SESSION['login'] ?><!--!</span>-->
+        <!--                </li>-->
+        <!--                <li class="nav-item">-->
+        <!--                    <a class="nav-link" href="schedule.php">Расписание</a>-->
+        <!--                </li>-->
+        <!--                <li class="nav-item">-->
+        <!--                    <a class="nav-link" href="groups.php">Группы</a>-->
+        <!--                </li>-->
+        <!--                <li class="nav-item">-->
+        <!--                    <a class="nav-link" href="tutors.php">Преподаватели</a>-->
+        <!--                </li>-->
+        <!--                <li class="nav-item">-->
+        <!--                    <form method="post">-->
+        <!--                        <input type="submit" name="logout" value="Выйти" class="nav-link btn btn-outline-primary">-->
+        <!--                    </form>-->
+        <!--                </li>-->
+        <!--            </ul>-->
 
-<!--                </div>-->
-<!---->
-<!--            </div>-->
-        </nav>
+
         <div class="row">
             <div class="col">
                 <h1>Расписание</h1>
-                <?echo $_SESSION['message'];
-                        unset($_SESSION['message'])
+                <? echo $_SESSION['message'];
+                unset($_SESSION['message'])
                 ?>
+
                 <table class='table'>
                     <thead>
                     <th>№</th>
@@ -87,6 +143,92 @@ include "includes/nav.php";
 
                     </thead>
                     <tbody>
+                    <tr>
+                        <form action="includes/filter.php" method="post" id="filterForm">
+                            <th>Фильтр</th>
+                            <td>
+                                <select name="day" class="form-control">
+                                    <option value=""></option>
+                                    <?php
+                                    $days = result_to_array(
+                                        mysqli_query($connection, "select distinct day from schedule order by day")
+                                    );
+                                    //                            print_r($days);
+                                    foreach ($days as $item) {
+                                        echo "
+                                <option>{$item['day']}</option>
+                                ";
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="lesson_id">
+                                    <option value=""></option>
+                                    <?php
+                                    foreach ($lessons as $lesson) {
+                                        echo "<option value=" . $lesson['id'] . ">{$lesson['beginning']}</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select type="" class="form-control" name="class_id">
+                                    <option value=""></option>
+                                    <?php
+                                    foreach ($classes as $class) {
+                                        echo "<option value='{$class['id']}'>{$class['place']}</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select type="" class="form-control" name="discipline_id">
+                                    <option value=""></option>
+                                    <?php
+                                    foreach ($disciplines as $discipline) {
+                                        echo "<option value='{$discipline['id']}'>{$discipline['name']}</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select type="" class="form-control" name="group_id">
+                                    <option value=""></option>
+                                    <?php
+                                    foreach ($groups as $group) {
+                                        echo "<option value='{$group['id']}'>{$group['name']}</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                            <td>
+                                <select type="" class="form-control" name="tutor_id">
+                                    <option value=""></option>
+                                    <?php
+                                    foreach ($tutors as $tutor) {
+                                        echo "<option value='{$tutor['id']}'>{$tutor['secondName']}</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary">▼</button>
+                            </td>
+                        </form>
+                        <script>
+                            const form = document.querySelector('#filterForm')
+                            console.dir(form);
+                            console.dir(form.elements[0]);
+                            form.addEventListener("submit",evt => {
+                                //
+                                // for (const element of form.elements) {
+                                //     element.value = "";
+                                // }
+                            })
+                        </script>
+
+                    </tr>
 
                     <?php
                     foreach ($schedule as $item) {
@@ -100,7 +242,7 @@ include "includes/nav.php";
                             <td>{$disciplines[$item['discipline_id']-1]['name']}</td>
                             <td>{$groups[$item['group_id']-1]['name']}</td>
                             <td>{$tutors[$item['tutor_id']-1]['secondName']}</td>";
-                        if($_SESSION['login'] == 'admin'){
+                        if ($_SESSION['login'] == 'admin') {
                             $id = $item['id'];
                             echo "
                             <td>
@@ -110,7 +252,7 @@ include "includes/nav.php";
                             </td>
                             ";
                         }
-                         echo"</tr>
+                        echo "</tr>
                 ";
 
                     }
@@ -141,4 +283,6 @@ include "includes/nav.php";
     <!--                    <input type="submit" placeholder="Добавить">-->
     <!--                </form>-->
 <?php
-//print_r($_SESSION);
+print_r($_GET);
+
+print_r($_GET);
