@@ -4,7 +4,6 @@ session_start();
 include_once 'includes/db.php';
 include 'includes/functions.php';
 
-
 if (isset($_POST['ok'])) {
 
     if (!empty($_POST['login'])) {

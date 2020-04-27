@@ -1,6 +1,5 @@
 <?php
-function result_to_array($result)
-{
+function result_to_array($result){
     $array = array();
     $count = 0;
     while ($row = mysqli_fetch_assoc($result)) {

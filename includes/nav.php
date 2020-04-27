@@ -1,8 +1,5 @@
 <nav class="navbar border alert-info">
     <ul class="nav">
-<!--        <li class="nav-item">-->
-<!--            <span class="nav-link alert-primary">Приветствую, --><?// echo $_SESSION['login'] ?><!--!</span>-->
-<!--        </li>-->
         <li class="nav-item">
             <a class="nav-link" href="../schedule.php">Расписание</a>
         </li>

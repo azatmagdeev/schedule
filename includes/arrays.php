@@ -28,3 +28,4 @@ mysqli_query($connection, 'select * from disciplines')
 $students = result_to_array(
     mysqli_query($connection, 'select * from students')
 );
+

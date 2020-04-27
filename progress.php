@@ -1,9 +1,9 @@
 <?php
 session_start();
-//print_r($_GET);
+
 include 'includes/db.php';
 include 'includes/arrays.php';
-//print_r($students);
+
 $student = [];
 foreach ($students as $item) {
     if ($item['id'] == $_GET['student_id']) {
@@ -15,7 +15,7 @@ foreach ($students as $item) {
 $results = result_to_array(
     mysqli_query($connection, "select * from progress where student_id = {$student['id']}")
 );
-//print_r($results);
+
 function define_discipline($array, $id)
 {
     foreach ($array as $item) {
@@ -30,8 +30,7 @@ if (isset($_POST['add_result'])) {
  VALUES (NULL, {$student['id']}, {$_POST['discipline_id']}, {$_POST['rating']});";
     if (mysqli_query($connection, $query)) {
         unset($_POST);
-//        session_start();
-//        $_SESSION['message'] = '<div class="alert-success">Запись успешно добавлена!</div>';
+
         header("Location: progress.php?student_id={$student['id']}");
     } else {
         echo mysqli_error($connection);
@@ -42,8 +41,7 @@ if (isset($_POST['del_result'])) {
     $query = "delete from `progress` where id = {$_POST['del_result']} ;";
     if (mysqli_query($connection, $query)) {
         unset($_POST);
-//        session_start();
-//        $_SESSION['message'] = '<div class="alert-success">Запись успешно добавлена!</div>';
+
         header("Location: progress.php?student_id={$student['id']}");
     } else {
         echo mysqli_error($connection);
@@ -85,7 +83,7 @@ if (isset($_POST['del_result'])) {
                 <tbody>
 
                 <?php
-                //                $i = 0;
+
                 foreach ($results as $item) {
                     $id = $item['id'];
                     $discipline_name = define_discipline($disciplines, $item['discipline_id']);
@@ -93,12 +91,7 @@ if (isset($_POST['del_result'])) {
                         <tr>
                             <td>{$discipline_name}</td>
                             <td>{$item['rating']}</td>
-                         <!--   <td> 
-                                <form method='get' action='students.php'>
-                                    <button type='submit' name='group_i' value='{$i}' class='btn btn-outline-primary'>
-                                    Студенты</button>
-                                </form>
-                            </td>-->
+  
                             ";
                     if ($_SESSION['login'] == 'admin') {
                         $id = $item['id'];

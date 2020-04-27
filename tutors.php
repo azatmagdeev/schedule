@@ -9,8 +9,7 @@ if (isset($_POST['add_tutor'])) {
  VALUES (NULL, '{$_POST['firstName']}', '{$_POST['secondName']}', '{$_POST['phone']}', '{$_POST['email']}');";
     if (mysqli_query($connection, $query)) {
         unset($_POST);
-//        session_start();
-//        $_SESSION['message'] = '<div class="alert-success">Запись успешно добавлена!</div>';
+
         header("Location: tutors.php");
     } else {
         echo mysqli_error($connection);
@@ -21,8 +20,7 @@ if (isset($_POST['del_tutor'])) {
     $query = "delete from `tutors` where id = {$_POST['del_tutor']}";
     if (mysqli_query($connection, $query)) {
         unset($_POST);
-//        session_start();
-//        $_SESSION['message'] = '<div class="alert-success">Запись успешно удалена!</div>';
+
         header("Location: tutors.php");
     } else {
         echo mysqli_error($connection);
@@ -72,14 +70,7 @@ if (isset($_POST['del_tutor'])) {
                             <td>{$item['firstName']}</td>
                             <td>{$item['phone']}</td>
                             <td>{$item['email']}</td>
-                            <!--  
-                            <td> 
-                              <form method='get' action='progress.php'>
-                                    <button type='submit' name='student_id' value='{$id}' class='btn btn-outline-primary'>
-                                   Прогресс</button>
-                                </form> 
-                                <a href='progress.php' class='btn btn-outline-primary'>Прогресс</a>
-                            </td>-->
+       
                             ";
                     if ($_SESSION['login'] == 'admin') {
                         $id = $item['id'];

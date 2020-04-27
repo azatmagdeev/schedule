@@ -10,20 +10,8 @@ if (isset($_SESSION['login'])) {
     }
 }
 
-//print_r($_SESSION);
 include 'includes/db.php';
 include 'includes/arrays.php';
-
-
-//function concat($arr)
-//{
-//    $str = '';
-//    foreach ($arr as $item) {
-//        $str .= ' ' . $item . ',';
-//    }
-//    $str = rtrim($str, ",");
-//    return $str;
-//}
 
 function construct_query($day, $lesson_id, $class_id, $discipline_id, $group_id, $tutor_id)
 {
@@ -63,10 +51,6 @@ function construct_query($day, $lesson_id, $class_id, $discipline_id, $group_id,
     return "select * from {$from} {$where}";
 }
 
-//print_r($_GET);
-//echo
-
-
 $schedule = result_to_array(
         mysqli_query($connection, construct_query(
                 $_GET['day'],
@@ -77,8 +61,6 @@ $schedule = result_to_array(
                 $_GET['tutor_id']
         ))
 );
-
-//unset($_GET);
 
 ?>
     <!doctype html>
@@ -102,27 +84,6 @@ $schedule = result_to_array(
         <?php
         include "includes/nav.php";
         ?>
-        <!--            <ul class="nav">-->
-        <!--                <li class="nav-item">-->
-        <!--                    <span class="nav-link alert-primary" >Приветствую, -->
-        <?// echo $_SESSION['login'] ?><!--!</span>-->
-        <!--                </li>-->
-        <!--                <li class="nav-item">-->
-        <!--                    <a class="nav-link" href="schedule.php">Расписание</a>-->
-        <!--                </li>-->
-        <!--                <li class="nav-item">-->
-        <!--                    <a class="nav-link" href="groups.php">Группы</a>-->
-        <!--                </li>-->
-        <!--                <li class="nav-item">-->
-        <!--                    <a class="nav-link" href="tutors.php">Преподаватели</a>-->
-        <!--                </li>-->
-        <!--                <li class="nav-item">-->
-        <!--                    <form method="post">-->
-        <!--                        <input type="submit" name="logout" value="Выйти" class="nav-link btn btn-outline-primary">-->
-        <!--                    </form>-->
-        <!--                </li>-->
-        <!--            </ul>-->
-
 
         <div class="row">
             <div class="col">
@@ -216,18 +177,6 @@ $schedule = result_to_array(
                                 <button type="submit" class="btn btn-primary">▼</button>
                             </td>
                         </form>
-                        <script>
-                            const form = document.querySelector('#filterForm')
-                            console.dir(form);
-                            console.dir(form.elements[0]);
-                            form.addEventListener("submit",evt => {
-                                //
-                                // for (const element of form.elements) {
-                                //     element.value = "";
-                                // }
-                            })
-                        </script>
-
                     </tr>
 
                     <?php
@@ -273,16 +222,5 @@ $schedule = result_to_array(
     </body>
     </html>
 
-    <!--                <form method="POST" action="add_student.php" class="form">-->
-    <!--                    <p>Добавить студента</p>-->
-    <!--                    <input type="number" name="group_id" placeholder="id группы">-->
-    <!--                    <input type="text" name="firstName" placeholder="Имя">-->
-    <!--                    <input type="text" name="secondName" placeholder="Фамилия">-->
-    <!--                    <input type="tel" name="phone" placeholder="Телефон">-->
-    <!--                    <input type="email" name="email" placeholder="Email">-->
-    <!--                    <input type="submit" placeholder="Добавить">-->
-    <!--                </form>-->
 <?php
-print_r($_GET);
 
-print_r($_GET);

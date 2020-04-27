@@ -3,20 +3,17 @@ session_start();
 
 include 'includes/db.php';
 include 'includes/arrays.php';
-//echo $_GET['group_i'];
-//print_r($groups);
+
 $students = result_to_array(
     mysqli_query($connection, "select * from students where group_id = {$groups[$_GET['group_i']]['id']}")
 );
-//print_r($students);
 
 if (isset($_POST['add_student'])) {
     $query = "INSERT INTO `students` (`id`, `group_id`, `firstName`, `secondName`, `phone`, `email`)
  VALUES (NULL, {$groups[$_GET['group_i']]['id']}, '{$_POST['firstName']}', '{$_POST['secondName']}', '{$_POST['phone']}', '{$_POST['email']}');";
     if (mysqli_query($connection, $query)) {
         unset($_POST);
-//        session_start();
-//        $_SESSION['message'] = '<div class="alert-success">Запись успешно добавлена!</div>';
+
         header("Location: students.php?group_i={$_GET['group_i']}");
     } else {
         echo mysqli_error($connection);
@@ -27,8 +24,7 @@ if (isset($_POST['del_student'])) {
     $query = "delete from `students` where id = {$_POST['del_student']}";
     if (mysqli_query($connection, $query)) {
         unset($_POST);
-//        session_start();
-//        $_SESSION['message'] = '<div class="alert-success">Запись успешно удалена!</div>';
+
         header("Location: students.php?group_i={$_GET['group_i']}");
     } else {
         echo mysqli_error($connection);

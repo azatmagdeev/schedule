@@ -11,8 +11,6 @@ if (isset($_POST['group_name'])) {
     $query = "insert into groups(`id`,`name`) values (null, '{$_POST['group_name']}')";
     if (mysqli_query($connection, $query)) {
         unset($_POST['group_name']);
-//        session_start();
-//        $_SESSION['message'] = '<div class="alert-success">Запись успешно добавлена!</div>';
 
         header('Location: groups.php');
     } else {
@@ -24,16 +22,11 @@ if (isset($_POST['del_group'])) {
     $query = "delete from groups where id = {$_POST['del_group']}";
     if (mysqli_query($connection, $query)) {
         unset($_POST['del_group']);
-//        $_SESSION['message'] = '<div class="alert-success">Запись успешно удалена!</div>';
-//        session_start();
+
     } else {
         echo mysqli_error($connection);
     }
 }
-
-//if(!$_POST['del_group'] or !$_POST['group_name']){
-//    unset($_SESSION['message']);
-//}
 
 include 'includes/arrays.php';
 ?>
@@ -55,33 +48,11 @@ include 'includes/arrays.php';
     <?php
     include "includes/nav.php";
     ?>
-<!--    <nav class="navbar border">-->
-<!--        <ul class="nav">-->
-<!--            <li class="nav-item">-->
-<!--                <span class="nav-link alert-primary">Приветствую, --><?// echo $_SESSION['login'] ?><!--!</span>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="schedule.php">Расписание</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="groups.php">Группы</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="tutors.php">Преподаватели</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <form method="post" action="includes/logout.php">-->
-<!--                    <input type="submit" name="logout" value="Выйти" class="nav-link btn btn-outline-primary">-->
-<!--                </form>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </nav>-->
+
     <div class="row">
         <div class="col">
             <h1>Группы</h1>
-<!--            --><?// echo $_SESSION['message'];
-//            unset($_SESSION['message']);
-//            ?>
+
             <table class='table'>
                 <thead>
                 <th>№</th>
@@ -153,4 +124,3 @@ include 'includes/arrays.php';
 </body>
 </html>
 <?php
-//print_r($_POST);
