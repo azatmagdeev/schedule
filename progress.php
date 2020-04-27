@@ -132,7 +132,7 @@ if (isset($_POST['del_result'])) {
 
         echo " </select>
         
-       <input type='number' class='form-control' name='rating' required placeholder='Название'>
+       <input type='number' class='form-control' name='rating' required placeholder='Результат'>
 
 
                     <button type='submit' class='btn btn-primary' name='add_result'>Сохранить</button>
